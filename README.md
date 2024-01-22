@@ -23,15 +23,105 @@ Positioning time as an endlessly active medium, brimming with generative tension
 
 ## Computational Modeling Methods
 
-To validate the generative, directive and adaptive propositions of ATH, we implemented algorithmic models using Python. Stochastic equations encapsulate the essence of time’s uncertainty to enable spontaneous emergence. The core ATH mechanisms are encoded as functions that can be readily composed into simulations.
+In our investigation of the Active Time Theory (ATH), we employed a computational approach, leveraging Python's robust capabilities for numerical analysis and network simulation. Our methodological framework was designed to encapsulate the generative, directive, and adaptive properties of time as stipulated by ATH. The core of our computational model is a dynamic network, constructed and evolved through a series of Python functions that algorithmically represent ATH's conceptual tenets.
 
-We utilize a dynamic directed network framework with nodes representing computational events, while weighted links depict correlations and causal associations. Time’s generative influence is captured by random perturbation of edge weights at each epoch. The directive property is embodied through an order-augmenting homophily function that reinforces strengths of strongly connected nodes. Adaptive modulation of topology uses preferential attachment for robustness.
+### Network Creation and Evolution
+We initiated our model by constructing a directed graph, representing a temporal network with nodes symbolizing computational events and weighted edges depicting causal associations. This network was not static; it evolved over time under the influence of ATH's principles, implemented through specific Python functions.
 
-Constructing this temporal network model with tuned ATH functions, we then execute evolutionary simulations across epochs. Node degrees and edge weights adapt in line with generative, instructive and adaptive pressures. What emerges is a dynamical system exhibiting signature topological features akin to real-world networks. 
+#### Generative Function:
+The generative aspect of time was modeled through a function `generative_func(t)`, which introduces stochastic perturbations to the network. This function encapsulates the idea of time inducing spontaneous events, akin to quantum fluctuations. Here's the implementation:
 
-To extract spatial information, we map the temporal network’s adjacency matrix into a latent coordinate embedding using Principal Component Analysis (PCA). Eigendecomposition of the connectivity matrix allows dimensionality reduction that reveals the system’s hidden “shapes”. Much like how cognitive maps arise in neural networks, spatial coordinates self-organize from purely temporal relationship data.
+```python
+def generative_func(t):
+    return S(t)
 
-Analysis of the model outputs offers us valuable insights into both validation and implications of encoding time’s active properties computationally. The resulting emergence of form, function and complexity from purely causal interactions substantiates the generative possibility of ATH mechanisms.
+def S(t, std_dev=0.01):
+    u1 = np.random.rand()
+    u2 = np.random.rand()
+    z0 = np.sqrt(-2.0 * np.log(u1)) * np.cos(2.0 * np.pi * u2)
+    return std_dev * z0
+```
+
+#### Directive Function:
+To model the directive property of time, directing the network's evolution, we used `directive_func(weight, t)`. This function adjusts the network's edge weights, signifying the influence of time in shaping the network's trajectory:
+
+```python
+def directive_func(weight, t):
+    Phi = np.abs(weight)
+    return G(Phi, t)
+
+def G(Phi, t, k=0.01):
+    return -k * np.abs(Phi)
+```
+
+#### Adaptive Function:
+The adaptive nature of time, adjusting to the network's state, was captured through `adaptive_func(psi)`. This function reflects the concept of time altering its pace in response to the system's evolution:
+
+```python
+def adaptive_func(psi):
+    return A(psi)
+
+def A(Phi, m=0.01):
+    return m * np.abs(Phi)
+```
+
+#### Network Evolution:
+The network was evolved over a series of steps, during which the edge weights were adjusted by the generative and directive functions, while the overall network structure was modulated through preferential attachment, representing the adaptive function:
+
+```python
+def simulate_temporal_network(num_nodes, num_steps, edge_prob=0.5, t=0):
+    G = nx.DiGraph()
+
+    # Network Initialization
+    # Creating nodes and establishing initial connections based on edge probability
+    for i in range(num_nodes):
+        for j in range(i + 1, num_nodes):
+            if np.random.rand() < edge_prob:
+                # Adding an edge with a randomly assigned weight
+                G.add_edge(i, j, weight=np.random.rand())
+
+    # Network Evolution
+    for step in range(num_steps):
+        # Iterating over each edge to apply the generative and directive functions
+        for i, j, data in G.edges(data=True):
+            # Updating the weight of the edge based on generative and directive influences
+            data['weight'] += generative_func(t) + directive_func(data['weight'], t)
+
+        # Applying the adaptive function through preferential attachment
+        adaptive_func_preferential(G, m=0.01)
+
+    return G
+
+def adaptive_func_preferential(G, m=0.01):
+    degrees = np.array([degree for node, degree in G.degree()])
+    prob_dist = degrees / degrees.sum()
+    selected_node = np.random.choice(list(G.nodes()), p=prob_dist)
+
+    # Decision to add or remove an edge based on a random threshold
+    if np.random.rand() < m:
+        # Adding a new edge
+        target_node = np.random.choice(list(set(G.nodes()) - {selected_node}))
+        G.add_edge(selected_node, target_node, weight=np.random.rand())
+    else:
+        # Removing an existing edge
+        neighbors = list(G.neighbors(selected_node))
+        if len(neighbors) > 0:
+            target_node = np.random.choice(neighbors)
+            G.remove_edge(selected_node, target_node)
+```
+
+### Spatial Mapping and Dimensionality Reduction
+To visualize and analyze the network's structural properties, we employed Principal Component Analysis (PCA). This technique reduced the high-dimensional adjacency matrix of the network to a lower-dimensional space, facilitating the interpretation of its complex structure:
+
+```python
+def map_to_spatial_coordinates(G):
+    adjacency_matrix = nx.to_numpy_array(G)
+    pca = PCA(n_components=3)
+    transformed = pca.fit_transform(adjacency_matrix)
+    return transformed, pca
+```
+
+This computational model, rooted in Python and its scientific libraries, provided a framework for exploring the intricate dynamics proposed by ATH. The implementation of generative, directive, and adaptive functions within a networked system allowed us to simulate and observe the emergent properties of a temporal network under ATH's influence. The results, as elaborated in the subsequent section, offer compelling insights into the validity and implications of ATH, showcasing the profound potential of computational methods in theoretical physics and cosmology.
 
 
 ## Results
@@ -44,7 +134,6 @@ Mapping nodes into spatial coordinates based on the primary reduced dimensions u
 
 Together, the outputs showcase ATH mechanisms manifesting complexity from simplicity. Rudimentary generative, directive and adaptive rules flower sophisticated structures displaying efficiency, resilience and evolvability - cornerstones of natural designs. The model hence provides a causally coherent explanation for the inception of order from formless unpredictability based on time’s inherent creativity.
 
-
 ## Discussion & Conclusion
 
 The Active Time Hypothesis marks a seismic shift from conventional assumptions of placid spacetime passively hosting existence, to reconceptualizing time as an eternal creative essence seeding reality through intrinsic self-organization. Where dominant physics narratives rely on abstract mathematical constructs devoid of causal logic, ATH grounds our cosmos’ becoming in iterative generative, instructive and adaptive acts of temporal genesis.
@@ -54,6 +143,16 @@ Positioning unpredictive uncertainty as the cornerstone of reality readily expla
 The model outputs validate core ATH mechanisms, showcasing time’s inherent generative capacity instigating events, adapting network architectures and sculpting self-reinforcing dynamics to direct progression. PCA visualization reveals spatial coordinates emerge from purely temporal relationship data. This substantiates time as the essential substrate for dimensionality and existence itself to crystallize within. 
 
 By reconstituting time’s essence to emphasize its perpetually active, morphing uncertainty at the heart of reality, ATH frees cosmogony from illogical infinite density singularities. An elegant framework centering temporal randomness and resonance naturally unifies quantum probabilities with relativistic continua. The arising worldview provides profound and intuitively causal explanations for our cosmos by empowering time as the eternal wellspring of being.
+
+
+## Further Validation using Quantum Simulations
+
+A study by Abdelsamie titled "[The Active Time Hypothesis: Unveiling Temporal Dynamics in Quantum Entanglement](https://github.com/maherabdelsamie/Active-Time-Hypothesis2)" constructs computational models to examine signatures of time’s active faculties in quantum contexts. Employing discrete encodings of the generative, directive and adaptive properties proposed by ATH, this work simulates a two-qutrit quantum system with and without temporal agency. 
+
+The outputs reveal increased entanglement entropy, uncertainty and complexity emerging from time’s simulated capacities to spontaneously perturb systems and reinforce resonant dynamics. This aligns with ATH’s suggestion that time’s inherent creativity seeds not just cosmological emergence, but also distinctly quantum phenomena.
+
+By substantiating measurable impacts of ascribing generative and instructive abilities to time even in microscopic quantum systems, this research further cements ATH’s viability as a foundational premise. The demonstration of quantum entanglement itself arising from basic algorithmic translations of time’s hypothetical properties encourages deeper interrogation of temporal dynamics’ role across scales of reality.
+
 
 ![1](https://github.com/maherabdelsamie/Active-Time-Hypothesis4/assets/73538221/412691d9-0563-421e-a738-fe5b41077f44)
 ![2](https://github.com/maherabdelsamie/Active-Time-Hypothesis4/assets/73538221/423a7d5e-af79-41c4-bf5d-546a30939737)
