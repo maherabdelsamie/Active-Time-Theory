@@ -158,5 +158,44 @@ By substantiating measurable impacts of ascribing generative and instructive abi
 ![2](https://github.com/maherabdelsamie/Active-Time-Hypothesis4/assets/73538221/423a7d5e-af79-41c4-bf5d-546a30939737)
 ![3](https://github.com/maherabdelsamie/Active-Time-Hypothesis4/assets/73538221/7b17ce25-93c2-4876-88ea-bf129e1d4e1d)
 
+
+---
+
+# Installation
+The simulation is implemented in Python and requires the following libraries:
+- numpy
+- networkx
+- matplotlib
+- scikit-learn
+- scipy
+
+You can install these libraries using pip:
+
+```bash
+pip install numpy
+pip install networkx
+pip install matplotlib
+pip install scikit-learn
+pip install scipy
+```
+
+### Usage
+Run the simulation by executing the `main.py` file. You can modify the parameters of the simulation by editing the `main.py` file.
+
+```
+python main.py
+```
+## Run on Google Colab
+
+You can run this notebook on Google Colab by clicking on the following badge:
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1VEY4kIU5PembbrU_WLPmPioof58BuKoE?usp=sharing)
+
+## License
+This code is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License. - see the LICENSE.md file for details.
+
+## Citing This Work
+
+If you use this software, please cite it using the information provided in the `CITATION.cff` file available in this repository.
  
  
