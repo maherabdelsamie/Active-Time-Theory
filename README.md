@@ -27,7 +27,7 @@ The Active Time Hypothesis (ATH) offers a novel framework to consider how time, 
 - **The Role of Time in Cosmology**: In this view, time is the primary agent driving the universe's formation and evolution. The big bang could be an event not in time but of time—an initial generative act from which space and particles emerged.
 - **Beyond the Big Bang**: The continual action of time's properties could lead to the ongoing creation and evolution of the universe, with new spaces and particles forming as time's influence unfolds.
 
-- Why the Active Time Hypothesis positions time as the eternal primordial essence seeding the emergence of our universe:
+# Why the Active Time Hypothesis positions time as the eternal primordial essence seeding the emergence of our universe:
 1. **Avoiding the Singularity Paradox**:
 ATH's active eternal timescape naturally avoids the problem of explaining an illogical infinite density state by needing no "beginning".
 2. **Aligns with No First Cause Arguments**:
